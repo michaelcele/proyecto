@@ -1,0 +1,7 @@
+#navegador{
+  display: flex;
+  justify-content: center;
+}
+body {
+  background-color: green;
+}

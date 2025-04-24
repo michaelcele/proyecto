@@ -1,0 +1,41 @@
+#listaLibros{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 3px;
+  width: 1050px;
+}
+#libro{
+  width: 200px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+}
+#contenido {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+#contenedorLista {
+  max-width: 1070px;
+  width: 100%;
+}
+#libro p {
+  flex-grow: 1;
+}       
+#libro a {
+  flex-grow: 1;
+  margin-bottom: 0;
+}
+#libro #estado{
+  margin-bottom: 0;
+  height: 10px;
+}
+#libro #titulo{
+  height: 106px;
+}
+#navegador{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Libros</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="/style/estilolibro.css">
+  </head>
+  <body>
+    <header>
+      <h1>BIBLIOTECA</h1>
+    </header>
+    <div id="contenido">
+      <div id="contenedorLista">
+        <div id="listaLibros" class="border border-2 p-2">
+          <% dataEnviada.forEach((libro) => {%>
+          <div id="libro" class="border border-2 p-2" href="https://www.google.com/?hl=es">
+            <a href="/libro/<%= libro.id%>">Detalle</a>
+            <p id="titulo"><%=libro.titulo%></p>
+            <% if(!libro.reserva & libro.prestamo) {%>
+            <p id="estado" class="bg-primary text-white p-2">Reserva</p>
+            <%} else if(!libro.prestamo & libro.reserva) {%>
+            <p id="estado" class="bg-danger text-white p-2">Prestamo</p>
+            <%}else {%>
+            <p id="estado" class="bg-success text-white p-2">Dispnible</p>
+            <%}%>
+          </div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

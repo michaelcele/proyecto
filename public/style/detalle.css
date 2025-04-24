@@ -1,0 +1,16 @@
+#contenedorLista {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+#detalleLibro{
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  width: 600px;
+  height: 500px;
+} 
+#botonoes{
+  height: 70px;
+}
+
