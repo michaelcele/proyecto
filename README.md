@@ -20,7 +20,6 @@ O --> P;
 F --> Q[GET /lista];
 Q --> R[data.query - Consulta biblioteca];
 R --> S[Renderiza libros.ejs con datos];
-F --> T[...];
 F --> U[Report];
 U --> V[GET /generar];
 V --> W[data.query - Consulta estadísticas];
