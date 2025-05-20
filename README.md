@@ -1,11 +1,11 @@
 #Proyecto biblioteca
 ```mermaid
 graph LR
-A[Inicio] --> B(app.js - Express);
+A[Inicio] --> B(app- Express);
 B --> C[Configuración: Motor EJS, Middleware urlencoded, session, MOVER session AQUÍ, Rutas];
 C --> D[Petición HTTP Ejemplo: GET /];
 D --> E[Ruteo];
-E --> F[routes.js];
+E --> F[routes];
 F --> G[GET /];
 G --> H[Renderiza login.ejs];
 H --> I[Respuesta al Cliente];
@@ -21,7 +21,7 @@ F --> Q[GET /lista];
 Q --> R[data.query - Consulta biblioteca];
 R --> S[Renderiza libros.ejs con datos];
 F --> T[...];
-F --> U[report.js - CUIDADO: RUTAS CONFLICTIVAS];
+F --> U[Report];
 U --> V[GET /generar];
 V --> W[data.query - Consulta estadísticas];
 W --> X[Crea PDF con jsPDF];
