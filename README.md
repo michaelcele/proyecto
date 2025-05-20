@@ -1,5 +1,5 @@
 #Proyecto biblioteca
-
+```mermaid
 graph LR
 A[Inicio] --> B(app.js - Express);
 B --> C[Configuración: Motor EJS, Middleware urlencoded, session, MOVER session AQUÍ, Rutas];
@@ -27,4 +27,4 @@ V --> W[data.query - Consulta estadísticas];
 W --> X[Crea PDF con jsPDF];
 X --> Y[Envia PDF al Cliente];
 Y --> Z[Fin];
-
+```
