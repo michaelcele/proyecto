@@ -1,9 +1,60 @@
 const express = require('express');
 const routes = express.Router();
 const data = require('../database/data.js');
+const session = require('express-session');
 
+ //login
+  //Ingreso de user
+routes.get('/' , (req, res) => {
+    res.render('login');
+})
+
+routes.use(session({
+  secret: 's3cr3t0',
+  resave: true,
+  saveUninitialized: true
+}));
+//creando session de ingreso
+//Login de usuarios
+routes.post('/login', (req, res) => {
+        const usuario = req.body.usuario;
+        const password = req.body.password;
+        if(usuario && password) {
+                data.query('SELECT * FROM usuarios WHERE usuario = ? AND password = ?', [usuario, password], (err, results)=> {
+                        if(results[0] === undefined) {
+                                res.redirect('/');
+                        }else{
+                                req.session.loggein = true;
+                                req.session.usuario = usuario;
+                                req.session.role = results[0].rol;
+                                res.redirect('/nav');
+
+                        }
+                })
+        }else {
+                res.redirect('/');
+        }
+})
+//Autorizacion de roles;
+function auth(req, res, next) {
+        if(req.session.loggein) {
+                next();
+        }else {
+                res.send('Por favor inicie sesion para ver esta pagina');
+                res.redirect('/');
+        }
+}
+//Pagina de prueba
+routes.get('/prueba' , auth, (req, res) => {
+        if(req.session.role == 'administrador') {
+                res.send('Ingreso admmin');
+        }else {
+                res.send('No tiene acceso');
+        }                      
+}); 
+ 
 //pagina de navegacion
-routes.get('/', (req, res) => {
+routes.get('/nav', (req, res) => {
   res.render('navegacion');
 })
 
@@ -51,12 +102,16 @@ const crud = require('../controllers/crud.js');
 routes.post('/gprestamo', crud.gprestamo);
 routes.post('/greserva', crud.greserva);
 //vista de los usuarios existentes
-routes.get('/usuario', (req,res) => {
-  data.query("SELECT * FROM usuarios", (err, result) => {
-    if(err)
-      res.status(500)("No se encuentara");
-    res.render('gestionusuario', {usuarios:result});
-  });
+routes.get('/usuario', auth, (req,res) => {
+  if(req.session.role == "administrador") {
+    data.query("SELECT * FROM usuarios", (err, result) => {
+      if(err)
+        res.status(500)("No se encuentara");
+      res.render('gestionusuario', {usuarios:result});
+    });
+  }else {
+    res.redirect('/nav');
+  }
 });
 //edicion del usuario escogido
 routes.get('/editusuario/:id', (req, res) => {
@@ -70,12 +125,16 @@ routes.get('/editusuario/:id', (req, res) => {
 //llamando la funcion para actualizar usuario
 routes.post('/actusuario', crud.actusuario);
 //gestion de los recursos
-routes.get('/recurso', (req, res) => {
-  data.query("SELECT * FROM biblioteca", (err, result) => {
-    if(err)
-      res.status(500)("no se encontraron datos");
-    res.render('gestionrecurso', {dataEnviada:result});
+routes.get('/recurso', auth, (req, res) => {
+  if(req.session.role=="administrador"){
+    data.query("SELECT * FROM biblioteca", (err, result) => {
+      if(err)
+        res.status(500)("no se encontraron datos");
+      res.render('gestionrecurso', {dataEnviada:result});
     })
+  }else {
+    res.redirect('/nav');
+  }
 });
 //enviando recurso para editar
 routes.get('/editrecurso/:id', (req, res) => {
@@ -128,4 +187,8 @@ routes.get('/panel', (req,res) => {
 })
 //llamado de para actualizar reglas
 routes.post('/actreglas', crud.actreglas)
+
+
+
+
 module.exports = routes;

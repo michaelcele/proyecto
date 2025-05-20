@@ -11,4 +11,6 @@ app.use(express.urlencoded({extended:false}));
 //app.use(json);
 const routes = require('./routes/routes');
 app.use('/', routes);
+const report = require('./routes/report');
+app.use('/', report);
 app.listen(puerto);
