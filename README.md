@@ -4,7 +4,7 @@
 ```mermaid
 graph LR
 A[Inicio] --> B(app- Express);
-B --> C[Configuración: Motor EJS, Middleware urlencoded, session, MOVER session AQUÍ, Rutas];
+B --> C[Configuración: Motor EJS, Middleware urlencoded, Rutas];
 C --> D[Petición HTTP Ejemplo: GET /];
 D --> E[Ruteo];
 E --> F[routes];
